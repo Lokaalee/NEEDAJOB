@@ -1,2 +1,2 @@
 # NEEDAJOB
-NEEDAJOB is a small project by Lorene for applying and posting a job
+NEEDAJOB is a small project for applying and posting a job
