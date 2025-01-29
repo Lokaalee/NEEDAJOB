@@ -1,0 +1,19 @@
+<?php
+// Fetch job listings from the database
+$sql = "SELECT * FROM jobs";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    while ($job = $result->fetch_assoc()) {
+        echo '<div class="job-card">';
+        echo '<h4>' . htmlspecialchars($job['job_title']) . '</h4>';  // Corrected column name and added sanitization
+        echo '<p>' . htmlspecialchars($job['job_description']) . '</p>';  // Corrected column name and added sanitization
+        echo '<p>Location: ' . htmlspecialchars($job['location']) . '</p>';
+        echo '<p>Salary: ' . htmlspecialchars($job['salary']) . '</p>';
+        echo '<a href="apply_job.php?job_id=' . htmlspecialchars($job['ID']) . '">Apply Now</a>'; // Apply link with sanitization
+        echo '</div>';
+    }
+} else {
+    echo "No job listings found.";
+}
+?>
