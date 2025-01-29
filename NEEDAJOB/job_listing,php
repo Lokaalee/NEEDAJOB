@@ -1,0 +1,41 @@
+<?php
+// Fetch job listings from the database
+$sql = "SELECT * FROM jobs";
+$result = $conn->query($sql);
+
+// Check if the query was successful
+if ($result === false) {
+    echo "Error fetching job listings: " . $conn->error;
+    exit;
+}
+
+if ($result->num_rows > 0) {
+    while ($job = $result->fetch_assoc()) {
+        // Start of the job card
+        echo '<div class="job-card">';
+        
+        // Job title with sanitization
+        echo '<h4>' . htmlspecialchars($job['job_title']) . '</h4>';
+
+        // Company name
+        echo '<p><strong>Company:</strong> ' . htmlspecialchars($job['company']) . '</p>';
+
+        // Job description with sanitization
+        echo '<p>' . htmlspecialchars($job['job_description']) . '</p>';
+
+        // Job location with sanitization
+        echo '<p><strong>Location:</strong> ' . htmlspecialchars($job['location']) . '</p>';
+
+        // Job salary with sanitization
+        echo '<p><strong>Salary:</strong> ' . htmlspecialchars($job['salary']) . '</p>';
+
+        // Apply now button with sanitized job ID
+        echo '<a href="apply_job.php?job_id=' . urlencode($job['ID']) . '" class="apply-btn">Apply Now</a>';
+        
+        // End of the job card
+        echo '</div>';
+    }
+} else {
+    echo "<p>No job listings found.</p>";
+}
+?>
